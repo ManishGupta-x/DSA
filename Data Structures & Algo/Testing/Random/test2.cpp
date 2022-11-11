@@ -1,99 +1,41 @@
-#include <iostream>
+/*find the maximum height of the saw blade that still allows him to cut off at least x metres of wood.*/
 #include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    int r, c;
-    cin >> r >> c;
-    char a[r+2][c+2], dummy[r][c];
-    for(int i =0 ; i < c+2 ; i++){
 
-        a[0][i] = '.';
-    }
-     for(int i =0 ; i < r+2 ; i++){
-
-        a[i][0] = '.';
-    }
-     for(int i =0 ; i < r+2 ; i++){
-
-        a[i][c+1] = '.';
-    }
-     for(int i =0 ; i < c+2 ; i++){
-
-        a[r+1][i] = '.';
-    }
-
-    for (int i = 1; i<=r; i++)
+    int n;
+    cin >> n;
+    int a[n];
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 1; j<=c; j++)
+        cin >> a[i];
+    }
+    int x;
+    cin >> x;
+    int low = 0;
+    int high = *max_element(a, a + n);
+    int ans = 0;
+    while (low <= high)
+    {
+        int mid = low + (high - low) / 2;
+        int sum = 0;
+        for (int i = 0; i < n; i++)
         {
-            cin >> a[i][j];
+            if (a[i] > mid)
+                sum += a[i] - mid;
+        }
+        if (sum >= x)
+        {
+            ans = mid;
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
         }
     }
-    for (int i = 0; i<r; i++)
-    {
-        for (int j = 0; j<c; j++)
-        {
-            dummy[i][j] = a[i+1][j+1];
-        }
-    }
-
-
-
-
-     for (int i = 1; i <=r; i++)
-     {
-         for (int j = 1; j <=c; j++)
-         {
-             if (a[i][j] == 'X')
-             {
-                 int count = 0;
-
-
-         if (a[i - 1][j] == '.')
-         { 
-             count++;
-         }
-
-
-         if (a[i + 1][j] == '.')
-         {
-             count++;
-         }
-
-
-
-         if (a[i][j - 1] == '.')
-         {
-             count++;
-         }
-
-
-         if (a[i][j + 1] == '.')
-         {
-             count++;
-         }
-
-
-                 if (count == 4 || count == 3)
-                 {
-                     dummy[i-1][j-1] = '.';
-                 }
-
-     }
-         }
-     }
-
-
- for (int i = 0; i < r; i++)
- {
-     for (int j = 0; j < c; j++)
-     {
-         cout << dummy[i][j];
-     }
-     cout << endl;
- }
-
+    cout << ans;
     return 0;
 }
