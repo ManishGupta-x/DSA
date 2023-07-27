@@ -9,28 +9,28 @@ int main()
     int n;
     cout << "Enter the number of elements in the array: ";
     cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        int a;
-        cin >> a;
-        arr.push_back(a);
+    cout << "Enter the elements of the array: ";
+    for(int i = 0; i < n; i++){
+        int temp;
+        cin >> temp;
+        arr.push_back(temp);
     }
-    for (int i = 1; i < n; i++)
-    {
-        int current = a[i];
-        int j = i - 1;
-        while (arr[j] > current && j >= 0)
-        {
-
-            arr[j + 1] = arr[j];
+    for(int i = 1; i < n; i++){
+        int temp = arr[i];
+        int j = i-1;
+        while(j >= 0 && arr[j] > temp){
+            arr[j+1] = arr[j];
             j--;
         }
+        arr[j+1] = temp;
     }
-    for (auto i : arr)
-    {
-        cout << i << " ";
+    cout << "The sorted array is: ";
+    for(int i = 0; i < n; i++){
+        cout << arr[i] << " ";
     }
+
+    return 0;
 }
 
-return 0;
-}
+
+
